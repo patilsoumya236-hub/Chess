@@ -1,5 +1,3 @@
-// Basic chess setup using chess.js and chessboard.js (you’ll need to include these libraries for full functionality)
-
 let board = null;
 let game = new Chess();
 
@@ -12,6 +10,8 @@ function startGame(difficulty) {
   board = Chessboard('board', {
     draggable: true,
     position: 'start',
+    moveSpeed: 'slow',
+    snapbackSpeed: 500,
     onDrop: handleMove
   });
 }
@@ -25,7 +25,7 @@ function handleMove(source, target) {
 
   if (move === null) return 'snapback';
 
-  window.setTimeout(() => makeBotMove(), 250);
+  window.setTimeout(() => makeBotMove(), 500);
   checkWinner();
 }
 
@@ -39,10 +39,10 @@ function makeBotMove() {
   if (difficulty === "easy") {
     move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
   } else if (difficulty === "medium") {
-    move = possibleMoves[Math.floor(Math.random() * possibleMoves.length / 2)];
+    move = possibleMoves[Math.floor(Math.random() * (possibleMoves.length / 2))];
   } else {
-    // Hard: pick best move using simple evaluation
-    move = possibleMoves[0]; // placeholder for stronger logic
+    // Hard: simple heuristic (choose first move)
+    move = possibleMoves[0];
   }
 
   game.move(move);
