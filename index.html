@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chess Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Chess Game</h1>
+  
+  <div id="game-container">
+    <div id="board"></div>
+    <div id="controls">
+      <label for="difficulty">Choose Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="startBtn">Start Game</button>
+    </div>
+  </div>
+
+  <div id="winner-popup" class="hidden">
+    <p id="winner-text"></p>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
