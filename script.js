@@ -1,5 +1,5 @@
 let board = null;
-let game = new Chess();
+let game = null;
 
 document.getElementById("startBtn").addEventListener("click", () => {
   let difficulty = document.getElementById("difficulty").value;
@@ -7,6 +7,10 @@ document.getElementById("startBtn").addEventListener("click", () => {
 });
 
 function startGame(difficulty) {
+  // Reset game state
+  game = new Chess();
+
+  // Initialize board
   board = Chessboard('board', {
     draggable: true,
     position: 'start',
