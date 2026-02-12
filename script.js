@@ -2,51 +2,33 @@ let board = null;
 let game = null;
 
 document.getElementById("startBtn").addEventListener("click", () => {
-  let difficulty = document.getElementById("difficulty").value;
-  startGame(difficulty);
-});
-
-function startGame(difficulty) {
-  // Reset game state
   game = new Chess();
-
-  // Initialize board
   board = Chessboard('board', {
     draggable: true,
     position: 'start',
-    moveSpeed: 'slow',
-    snapbackSpeed: 500,
     onDrop: handleMove
   });
-}
+});
 
 function handleMove(source, target) {
-  let move = game.move({
-    from: source,
-    to: target,
-    promotion: 'q'
-  });
-
+  let move = game.move({ from: source, to: target, promotion: 'q' });
   if (move === null) return 'snapback';
-
-  window.setTimeout(() => makeBotMove(), 500);
+  setTimeout(makeBotMove, 500);
   checkWinner();
 }
 
 function makeBotMove() {
   let difficulty = document.getElementById("difficulty").value;
-  let possibleMoves = game.moves();
-
-  if (possibleMoves.length === 0) return;
+  let moves = game.moves();
+  if (moves.length === 0) return;
 
   let move;
   if (difficulty === "easy") {
-    move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    move = moves[Math.floor(Math.random() * moves.length)];
   } else if (difficulty === "medium") {
-    move = possibleMoves[Math.floor(Math.random() * (possibleMoves.length / 2))];
+    move = moves[Math.floor(Math.random() * (moves.length / 2))];
   } else {
-    // Hard: simple heuristic (choose first move)
-    move = possibleMoves[0];
+    move = moves[0]; // placeholder for smarter AI
   }
 
   game.move(move);
@@ -65,5 +47,5 @@ function checkWinner() {
 
 function showWinner(text) {
   document.getElementById("winner-text").innerText = text;
-  document.getElementById("winner-popup").classList.remove("hidden");
+  document.getElementById("winner-popup").style.display = "block";
 }
